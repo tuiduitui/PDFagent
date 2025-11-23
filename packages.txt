@@ -1,0 +1,3 @@
+# packages.txt
+# 这是 Poppler 库的 Debian/Ubuntu 包名，用于支持 PDF 文本提取
+poppler-utils
