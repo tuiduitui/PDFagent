@@ -1,8 +1,11 @@
+# 确保文件中有这三行，特别是第一行
 streamlit
-langchain-community
+langchain-community 
 langchain-text-splitters
 langchain-openai
 langchain-core
+
+# 以下是工具库，也必须包含
 pypdf
 chromadb
 sentence-transformers
