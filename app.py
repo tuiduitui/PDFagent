@@ -40,9 +40,13 @@ with st.sidebar:
 
 # --- 核心功能函数 ---
 
-@st.cache_resource
+# 【修改点 2：暂时移除 @st.cache_resource，排除缓存问题】
+# @st.cache_resource 
 def get_embedding_model():
+    """加载本地向量模型"""
     with st.spinner("正在加载本地向量模型..."):
+        # 注意：此处为同步加载，如果模型过大可能导致超时。
+        # 实际部署时，可能需要考虑使用远程模型或更小的本地模型。
         return HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
 
@@ -216,10 +220,16 @@ def create_word_docx(markdown_text):
 
 # --- 主界面逻辑 ---
 
+# 【修改点 1：将 get_embedding_model() 移动到 api_key 检查之后】
 if not api_key:
     st.warning("⚠️ 请先在左侧侧边栏输入 DeepSeek API Key。")
 else:
-    embedding_model = get_embedding_model()
+    # 只有在 Key 存在时，才尝试加载嵌入模型
+    try:
+        embedding_model = get_embedding_model()
+    except Exception as e:
+        st.error(f"加载嵌入模型失败，请检查依赖配置: {e}")
+        st.stop() # 停止应用运行，直到用户解决问题
 
     uploaded_files = st.file_uploader(
         "📄 上传文档 (支持 PDF 和 PPTX)",
