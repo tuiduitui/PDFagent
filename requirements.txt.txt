@@ -1,13 +1,21 @@
-# 确保文件中有这三行，特别是第一行
+# Streamlit 框架
 streamlit
+
+# LangChain 核心及社区部分
+langchain-core
 langchain-community 
 langchain-text-splitters
 langchain-openai
-langchain-core
 
-# 以下是工具库，也必须包含
-pypdf
-chromadb
-sentence-transformers
+# LangChain 工具依赖（关键！）
+# PyPDFLoader 的底层依赖
+pypdf 
+
+# ChromaDB 向量存储依赖
+chromadb 
+# 向量嵌入模型依赖
+sentence-transformers 
+
+# Word/PPTX 处理依赖
 python-pptx
 python-docx
